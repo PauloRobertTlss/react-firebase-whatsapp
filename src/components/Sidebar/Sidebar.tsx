@@ -93,9 +93,9 @@ const SideBar = (props: SideBarInterface) => {
                     db.collection("rooms")
                         .doc(user.uid)
                         .onSnapshot((snapshot) => {
-                            const client = snapshot ? {id: user.uid, data: snapshot.data()} : false;
+                            const client = snapshot.data() ? {id: user.uid, data: snapshot.data()} : false;
 
-                            if (client?.hasOwnProperty('id')) {
+                            if (client?.hasOwnProperty('data')) {
                                 console.log('is client #01', client)
                                 setRooms([client]);
                                 return resolve(true)
