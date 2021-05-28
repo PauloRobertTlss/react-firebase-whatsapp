@@ -91,15 +91,21 @@ const SideBar = (props: SideBarInterface) => {
                         const result = snapshot ? {id: user.uid, data: snapshot.data()} : false;
 
                         if (result) {
+                            console.log('is client #01')
                             setRooms([result]);
                             return true;
                         }
+                        console.log('no client #01')
                         return false;
                     }));
 
                 if (isClientRoom) {
+                    console.log('is client #02')
                     return true;
                 }
+
+                console.log(isClientRoom);
+                console.log('new rooms', user.uid)
 
                 //default employees
                 const attachEmployees = await db.collection("master_employees").get()
