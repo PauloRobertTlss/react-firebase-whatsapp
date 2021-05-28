@@ -68,6 +68,8 @@ const SideBar = (props: SideBarInterface) => {
                         return false;
                     }));
 
+                console.log(`%c employee %c flag: `, 'background: orange; color: black;border-radius: 12px 0 0 12px','background: #fbe4a0; color: back;border-radius: 0 12px 12px 0',result);
+
                 if (result) {
                     return db.collection("rooms")
                         .where('members', 'array-contains', user.uid)
