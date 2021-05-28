@@ -64,9 +64,9 @@ const SideBar = (props: SideBarInterface) => {
                         if (result?.hasOwnProperty('uid')) {
                             console.log('is empployee');
                             setEmployee(result);
-                            resolve(true);
+                            return resolve(true);
                         }
-                        resolve(false);
+                        return resolve(false);
                     })
                 }))
 
@@ -90,23 +90,23 @@ const SideBar = (props: SideBarInterface) => {
                 }
 
                 const isClientRoom = await new Promise((resolve => {
-                    util.promisify(db.collection("rooms")
+                    db.collection("rooms")
                         .doc(user.uid)
                         .onSnapshot((snapshot) => {
-                            const result = snapshot ? {id: user.uid, data: snapshot.data()} : false;
+                            const client = snapshot ? {id: user.uid, data: snapshot.data()} : false;
 
-                            if (result) {
-                                console.log('is client #01')
-                                setRooms([result]);
-                                resolve(true)
+                            if (client?.hasOwnProperty('id')) {
+                                console.log('is client #01', client)
+                                setRooms([client]);
+                                return resolve(true)
                             }
                                 resolve(false)
-                            }));
+                            });
                         }
                     ))
 
                 if (isClientRoom) {
-                    console.log('is client #02')
+                    console.log(`%c existe rooms on %c client `, 'background: orange; color: black;border-radius: 12px 0 0 12px','background: #fbe4a0; color: back;border-radius: 0 12px 12px 0', isClientRoom);
                     return true;
                 }
 
