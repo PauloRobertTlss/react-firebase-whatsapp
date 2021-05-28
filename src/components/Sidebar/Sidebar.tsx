@@ -54,7 +54,8 @@ const SideBar = (props: SideBarInterface) => {
                     return;
                 }
 
-                const result = await util.promisify(db.collection("employees")
+                const result = await new Promise((resolve => {
+                    db.collection("employees")
                     .doc(user.uid)
                     .onSnapshot((snapshot) => {
                         const result = snapshot
@@ -63,10 +64,11 @@ const SideBar = (props: SideBarInterface) => {
                         if (result?.hasOwnProperty('uid')) {
                             console.log('is empployee');
                             setEmployee(result);
-                            return true;
+                            resolve(true);
                         }
-                        return false;
-                    }));
+                        resolve(false);
+                    })
+                }))
 
                 console.log(`%c employee %c flag: `, 'background: orange; color: black;border-radius: 12px 0 0 12px','background: #fbe4a0; color: back;border-radius: 0 12px 12px 0',result);
 
@@ -87,19 +89,21 @@ const SideBar = (props: SideBarInterface) => {
                         });
                 }
 
-                const isClientRoom = await util.promisify(db.collection("rooms")
-                    .doc(user.uid)
-                    .onSnapshot((snapshot) => {
-                        const result = snapshot ? {id: user.uid, data: snapshot.data()} : false;
+                const isClientRoom = await new Promise((resolve => {
+                    util.promisify(db.collection("rooms")
+                        .doc(user.uid)
+                        .onSnapshot((snapshot) => {
+                            const result = snapshot ? {id: user.uid, data: snapshot.data()} : false;
 
-                        if (result) {
-                            console.log('is client #01')
-                            setRooms([result]);
-                            return true;
+                            if (result) {
+                                console.log('is client #01')
+                                setRooms([result]);
+                                resolve(true)
+                            }
+                                resolve(false)
+                            }));
                         }
-                        console.log('no client #01')
-                        return false;
-                    }));
+                    ))
 
                 if (isClientRoom) {
                     console.log('is client #02')
@@ -110,7 +114,7 @@ const SideBar = (props: SideBarInterface) => {
                 console.log('new rooms', user.uid)
 
                 //default employees
-                const attachEmployees = await db.collection("master_employees").get()
+                const attachEmployees = await db.collection("master_employees").get();
                 const employeesId = attachEmployees.docs.map((doc) => {
                    return doc.id
                 })
