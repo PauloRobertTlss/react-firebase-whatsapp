@@ -1,0 +1,79 @@
+.sidebar {
+    flex: 0.35;
+    display: flex;
+    flex-direction: column;
+}
+
+.sideBheader {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    height: 5.1rem;
+}
+
+.sideBHeaderInfo {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    min-width: 0;
+    padding: 16px;
+}
+.sideBHeaderInfo > .header {
+    display: flex;
+    align-items: flex-start;
+    line-height: normal;
+    color: gray;
+}
+
+.sideBheaderRight {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 10vw;
+}
+
+.sideBheaderRight>.MuiSvgIcon-root {
+    margin-right: 2vw !important;
+    font-size: 24px !important;
+}
+
+.sidebar__search {
+    display: flex;
+    align-items: center;
+    background-color: #f6f6f6;
+    min-height: 2vw;
+    padding: 10px;
+}
+
+.sidebar__searchContainer {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    width: 100%;
+    height: 35px;
+    border-radius: 20px;
+}
+
+.sidebar__searchContainer>input {
+    border: none;
+    width: 100%;
+    min-height: 1.3vw;
+}
+
+.sidebar__searchContainer>.MuiSvgIcon-root {
+    color: gray;
+    padding: 10px
+}
+
+.sidebar__chats {
+    flex: 1;
+    overflow: scroll;
+    background-color: white;
+}
+
+.sidebar__chats::-webkit-scrollbar {
+    display: none;
+}
