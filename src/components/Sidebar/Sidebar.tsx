@@ -110,9 +110,6 @@ const SideBar = (props: SideBarInterface) => {
                     return true;
                 }
 
-                console.log(isClientRoom);
-                console.log('new rooms', user.uid)
-
                 //default employees
                 const attachEmployees = await db.collection("master_employees").get();
                 const employeesId = attachEmployees.docs.map((doc) => {
