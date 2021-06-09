@@ -15,7 +15,6 @@ const AppRouter = () => {
     const [user, dispatch] = useContext(StateContext);
 
     useEffect(() => {
-        console.log(`%c reduce %c user`, 'background: orange; color: black;border-radius: 12px 0 0 12px','background: #fbe4a0; color: back;border-radius: 0 12px 12px 0',user);
         const credentials =  user.hasOwnProperty('user') ? user.user : null;
 
         setAuthorized(credentials !== null);

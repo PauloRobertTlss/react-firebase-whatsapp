@@ -2,15 +2,11 @@
 import React, {useContext, useEffect, useState} from "react";
 import {Avatar, Badge, Box, Fab, Toolbar, Typography} from "@material-ui/core";
 import {Link} from "react-router-dom";
-import Modal from "react-modal";
-
 import db from "../../firebase";
 import "./SidebarChat.css";
-import {customStyles} from "../CustomModalStyles";
 import {StateContext} from "../../providers/StateProvider";
 import {MessageOutlined} from "@material-ui/icons";
-import { formatDistance, formatRelative, subDays } from 'date-fns'
-import firebase from "firebase";
+import { formatDistance } from 'date-fns'
 
 interface SidebarChatInterface {
     room?: any,
@@ -19,16 +15,11 @@ interface SidebarChatInterface {
     isEmployee?: boolean
 }
 
-// function SidebarChat({ id, room, addNewChat }) {
 const SidebarChat = (props: SidebarChatInterface) => {
-    const {room, id, isEmployee, addNewChat} = props;
-    // const [{user}] = useStateValue();
+    const {room, id, isEmployee} = props;
     const [{user}, dispatch] = useContext(StateContext);
     const [readers, setReaders] = useState<number>(0);
-    const [messages, setMessages] = useState<any>("");
     const [members, setMembers] = useState<any>([]);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [roomName, setRoomName] = useState("");
 
     useEffect(() => {
 
@@ -36,37 +27,19 @@ const SidebarChat = (props: SidebarChatInterface) => {
         (async () => {
             if (room) {
                 console.log(`${id}-${user.uid}`)
-                const collectionRef = await db.collectionGroup('readers')
+                await db.collectionGroup('readers')
                     .where('uid','==', `${id}-${user.uid}`)
                     .get().then((equery) => {
                         const docs = equery.docs.length;
                         setReaders(docs)
                     });
 
-                const members = await db.collection('employees')
+                await db.collection('employees')
                     .where('uid', 'in', room.members).get();
                 setMembers(members.docs.map((doc) => doc.data()));
             }
         })()
     }, [room]);
-
-    const openModal = () => setModalIsOpen(true);
-    const closeModal = () => setModalIsOpen(false);
-
-
-    const createChat = (e) => {
-        e.preventDefault();
-
-        if (roomName && roomName !== "") {
-            db.collection("rooms").add({
-                name: roomName,
-                members: [user.uuid],
-                owner: {}
-            });
-            setRoomName("");
-            setModalIsOpen(false);
-        }
-    };
 
     return (
         <React.Fragment>

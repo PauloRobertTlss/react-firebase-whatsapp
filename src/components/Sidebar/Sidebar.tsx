@@ -12,13 +12,10 @@ import {useHistory} from "react-router";
 import "./Sidebar.css";
 import {StateContext} from "../../providers/StateProvider";
 import SidebarChat from "../SidebarChat/SidebarChat";
-import {DarkModeContext} from "../../providers/ThemeDarkProvider";
 import {actionTypes} from "../../reducer";
-const util = require('util');
 
 
 interface SideBarInterface {
-
 }
 
 const SideBar = (props: SideBarInterface) => {
@@ -70,8 +67,6 @@ const SideBar = (props: SideBarInterface) => {
                     })
                 }))
 
-                console.log(`%c employee %c flag: `, 'background: orange; color: black;border-radius: 12px 0 0 12px','background: #fbe4a0; color: back;border-radius: 0 12px 12px 0',result);
-
                 if (result) {
                     return db.collection("rooms")
                         .where('members', 'array-contains', user.uid)
@@ -96,7 +91,6 @@ const SideBar = (props: SideBarInterface) => {
                             const client = snapshot.data() ? {id: user.uid, data: snapshot.data()} : false;
 
                             if (client?.hasOwnProperty('data')) {
-                                console.log('is client #01', client)
                                 setRooms([client]);
                                 return resolve(true)
                             }
@@ -106,7 +100,6 @@ const SideBar = (props: SideBarInterface) => {
                     ))
 
                 if (isClientRoom) {
-                    console.log(`%c existe rooms on %c client `, 'background: orange; color: black;border-radius: 12px 0 0 12px','background: #fbe4a0; color: back;border-radius: 0 12px 12px 0', isClientRoom);
                     return true;
                 }
 
@@ -145,8 +138,6 @@ const SideBar = (props: SideBarInterface) => {
                         <div className="header">
                             <span>{user?.email}</span>
                         </div>
-
-
                     </div>
 
                     <div className="sideBheaderRight">
@@ -184,7 +175,6 @@ const SideBar = (props: SideBarInterface) => {
                                     placeholder="buscar contato" />
                             </Grid>
                         </Grid>
-
                 </div>
 
                 <div className="sidebar__chats">

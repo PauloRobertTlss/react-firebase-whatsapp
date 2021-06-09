@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import {Button, IconButton} from "@material-ui/core";
-// import {useStateValue} from "../../providers/StateProvider";
 import {StateContext} from "../../providers/StateProvider";
 import {auth, provider} from "../../firebase";
 import {actionTypes} from "../../reducer";

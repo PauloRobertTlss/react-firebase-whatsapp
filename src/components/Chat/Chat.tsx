@@ -15,7 +15,6 @@ import Picker, {SKIN_TONE_MEDIUM_DARK} from "emoji-picker-react";
 import db from "../../firebase";
 import "./Chat.css";
 import {StateContext} from "../../providers/StateProvider";
-import crypto from 'crypto';
 
 interface ChatInterface {
 
@@ -43,7 +42,6 @@ let recognition: any;
 
 const Chat = (props: ChatInterface) => {
     const [input, setInput] = useState("");
-    const [seed, setSeed] = useState<number>(0);
     const {roomId} = useParams<any>();
     const [room, setRoom] = useState<RoomInterface>({} as RoomInterface);
     const [messages, setMessages] = useState<any>([]);
@@ -73,11 +71,6 @@ const Chat = (props: ChatInterface) => {
                     }
                 );
         }
-    }, [roomId]);
-
-    // generate random avatars for chat
-    useEffect(() => {
-        setSeed(Math.floor(Math.random() * 5000));
     }, [roomId]);
 
     // add event listeners when component is loaded
